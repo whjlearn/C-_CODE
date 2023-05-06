@@ -1,8 +1,12 @@
 #pragma once
 #include<iostream>
+#include<assert.h>
 using namespace std;
 class Date
 {
+	//友元函数--这个函数内部可以使用Date对象访问私有保护成员
+	friend ostream& operator<<(ostream& out, const Date& d);
+	friend istream& operator>>(istream& in, Date& d);
 public:
 	//会频繁调用，所以放在类里面作为inline(内联函数)
 	int GetMonthDay(int year,int month)
@@ -26,7 +30,26 @@ public:
 		_year = year;
 		_month = month;
 		_day = day;
+		if (!CheckDate())
+		{
+			Print();
+			cout << "日期非法" << endl;
+		}
 	}
+	bool CheckDate()
+	{
+		if (_year >= 1
+			&& _month > 0 && _month < 13
+			&& _day>0 && _day <= GetMonthDay(_year, _month))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
 	//只放他的声明  
 	bool operator==(const Date& d);
 	bool operator!=(const Date& d);
@@ -34,6 +57,16 @@ public:
 	bool operator>=(const Date& d);
 	bool operator<(const Date& d);
 	bool operator<=(const Date& d);
+
+	Date operator-(int day);
+	Date& operator-=(int day);
+
+	Date& operator--();
+	Date operator--(int);//后置
+	//日期相减
+	int operator-(const Date& d);
+
+
 
 	//日期加天数 +  +=
 	Date operator+(int day);
@@ -74,3 +107,18 @@ private:
 	int _month;
 	int _day;
 };
+// 流插入重载
+inline ostream& operator<<(ostream& out, const Date& d)
+{
+	out << d._year << "年" << d._month << "月" << d._day << "日" << endl;
+	return out;
+}
+
+// 流提取重载
+inline istream& operator>>(istream& in, Date& d)
+{
+	in >> d._year >> d._month >> d._day;
+	assert(d.CheckDate());
+
+	return in;
+}

@@ -70,22 +70,34 @@
 //	d1.Print();
 //}
 
+//void TestDate2()
+//{
+//	Date d1(1999, 10, 21);
+//
+//	//(d1 + 4).Print();
+//
+//	//(d1 + 40).Print();
+//
+//
+//	//(d1 + 400).Print();
+//	//(d1 + 4000).Print();
+//
+//	/*Date ret1 = d1++;
+//	ret1.Print();*/
+//	Date ret2 = ++d1;
+//	ret2.Print();
+//
+//}
+
 void TestDate2()
 {
 	Date d1(1999, 10, 21);
+	Date d2(2000, 10, 21);
+	Date d3;
+	cout << d2 << d1;
+	cin >> d3;
+	
 
-	//(d1 + 4).Print();
-
-	//(d1 + 40).Print();
-
-
-	//(d1 + 400).Print();
-	//(d1 + 4000).Print();
-
-	/*Date ret1 = d1++;
-	ret1.Print();*/
-	Date ret2 = ++d1;
-	ret2.Print();
 
 }
 

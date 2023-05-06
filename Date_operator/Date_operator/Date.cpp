@@ -64,6 +64,10 @@ Date Date::operator+(int day)
 }
 Date& Date::operator+=(int day)
 {
+	if (day < 0)
+	{
+		return *this -= -day;
+	}
 	_day += day;
 	while (_day>GetMonthDay(_year,_month))
 	{
@@ -92,4 +96,64 @@ Date Date::operator++(int)
 	//Date tmp(*this);
 	*this += 1;
 	return tmp;
+}
+
+Date Date::operator-(int day)
+{
+	Date ret= *this;
+	ret -= day ;
+	return ret;
+	
+}
+Date& Date::operator-=(int day)
+{
+	if (day<0)
+	{
+		return *this += -day;
+	}
+	_day -= day;
+	while (_day<=0)
+	{
+		--_month;//借上一个月
+		if (_month == 0)
+		{
+			--_year;
+			_month = 12;
+
+		}
+		_day += GetMonthDay(_year, _month);
+	}
+	return *this;
+}
+
+Date& Date::operator--()
+{
+	*this -= 1;
+	return *this;
+}
+Date Date::operator--(int)//后置
+{
+	Date tmp = *this;
+	*this -= 1;
+	return tmp;
+}
+
+int Date::operator-(const Date& d)
+{
+	int flag = 1;
+	Date max = *this;
+	Date min = d;
+	if (*this < d)
+	{
+		max = d;
+		min = *this;
+		flag = -1;
+	}
+	int n = 0;
+	while (min != max)
+	{
+		++min;
+		++n;
+	}
+	return n*flag;
 }
