@@ -1,6 +1,8 @@
 #include<string>
 #include<iostream>
 #include<string>
+#include<list>
+
 using namespace std;
 
 void test_string1()
@@ -50,11 +52,48 @@ void test_string3()
 
 }
 
+void test_string4()
+{
+	string s("hello");
+	string::iterator it = s.begin();//迭代器
+	while (it != s.end())
+	{
+		cout << *it << " ";
+		++it;
+	}
+	cout << endl;
+
+	//范围for -- 自动迭代，自动判断结束
+	for (auto ch : s)
+	{
+		cout << ch << " ";
+	}
+	cout << endl;
+
+	list<int> lt(10, 1);
+	list<int>::iterator lit = lt.begin();
+	while (lit != lt.end())
+	{
+		cout << *lit << " ";
+		++lit;
+	}
+	cout << endl;
+	//范围for底层其实就是迭代器
+	for (auto e : lt)
+	{
+		cout << e << " ";
+	}
+	cout << endl;
+
+}
+
+
+
 int main()
 {
 	try
 	{
-		test_string3();
+		test_string4();
 	}
 	catch (const std::exception&e)
 	{
